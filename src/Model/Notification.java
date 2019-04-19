@@ -30,8 +30,7 @@ public class Notification {
 
 	private static MongoCollection<Document> collection = null;
 	private static final MongoClientURI uri = new MongoClientURI(
-			"mongodb://admin:admin@cluster0-shard-00-00-nvkqp.gcp.mongodb.net:27017,cluster0-shard-00-01-nvkqp.gcp.mongodb.net:27017,cluster0-shard-00-02-nvkqp.gcp.mongodb.net:27017/"
-			+ "El-Menus?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true");
+			"mongodb://localhost");
 	public static HashMap<String, Object> create(HashMap<String, Object> attributes, String target_id) {
 
 		MongoClient mongoClient = new MongoClient(uri);
@@ -54,7 +53,7 @@ public class Notification {
 	}
 	public static ArrayList<HashMap<String, Object>> get(String messageId) {
 		MongoClientURI uri = new MongoClientURI(
-				"mongodb://admin:admin@cluster0-shard-00-00-nvkqp.gcp.mongodb.net:27017,cluster0-shard-00-01-nvkqp.gcp.mongodb.net:27017,cluster0-shard-00-02-nvkqp.gcp.mongodb.net:27017/El-Menus?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true");
+				"mongodb://localhost");
 
 		MongoClient mongoClient = new MongoClient(uri);
 		MongoDatabase database = mongoClient.getDatabase("El-Menus");
