@@ -31,7 +31,7 @@ public class Notification {
 	private static int DbPoolCount = 4;
 	private static MongoCollection<Document> collection = null;
 
-	public static HashMap<String, Object> create(HashMap<String, Object> attributes, String target_id) {
+	public static HashMap<String, Object> create(HashMap<String, Object> attributes, String target_id) throws ParseException {
 
 		MongoClientOptions.Builder options = MongoClientOptions.builder()
 	            .connectionsPerHost(DbPoolCount);
@@ -51,9 +51,16 @@ public class Notification {
 		newNotification.append("target_username", target_id);
 		
 		collection.insertOne(newNotification);
+
+		JSONParser parser = new JSONParser();
+
+		HashMap<String, Object> returnValue = Command.jsonToMap((JSONObject) parser.parse(newNotification.toJson()));
+
+
 		mongoClient.close();
 		
-		return attributes;
+		return returnValue;
+		
 	}
 	public static int getDbPoolCount() {
 		return DbPoolCount;
