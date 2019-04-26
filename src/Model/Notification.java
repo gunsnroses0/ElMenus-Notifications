@@ -29,6 +29,7 @@ import Commands.Command;
 public class Notification {
 	private static final String COLLECTION_NAME = "notifications";
 	private static int DbPoolCount = 4;
+	static String host = System.getenv("MONGO_URI");
 	private static MongoCollection<Document> collection = null;
 
 	public static HashMap<String, Object> create(HashMap<String, Object> attributes, String target_id) throws ParseException {
@@ -36,7 +37,7 @@ public class Notification {
 		MongoClientOptions.Builder options = MongoClientOptions.builder()
 	            .connectionsPerHost(DbPoolCount);
 		MongoClientURI uri = new MongoClientURI(
-				"mongodb://localhost",options);
+				host,options);
 		MongoClient mongoClient = new MongoClient(uri);
 		MongoDatabase database = mongoClient.getDatabase("El-Menus");
 
@@ -72,7 +73,7 @@ public class Notification {
 		MongoClientOptions.Builder options = MongoClientOptions.builder()
 	            .connectionsPerHost(DbPoolCount);
 		MongoClientURI uri = new MongoClientURI(
-				"mongodb://localhost",options);
+				host,options);
 
 		MongoClient mongoClient = new MongoClient(uri);
 		MongoDatabase database = mongoClient.getDatabase("El-Menus");
