@@ -1,0 +1,9 @@
+POST,/notification/id,CreateNotification
+GET,/notification/id,RetrieveNotifications
+POST,/notification/addCommand/,AddCommand
+POST,/notification/updateCommand/,UpdateCommand
+POST,/notification/deleteCommand/,DeleteCommand
+POST,/notification/updateThreadPoolCount/,UpdateThreadPoolCount
+POST,/notification/updateDBPoolCount/,UpdateDBPoolCount
+GET,/notification/freeze/,FreezeQueue
+GET,/notification/resume/,ResumeQueue

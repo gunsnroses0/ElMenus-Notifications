@@ -17,6 +17,7 @@ import org.bson.types.ObjectId;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -27,12 +28,15 @@ import Commands.Command;
 
 public class Notification {
 	private static final String COLLECTION_NAME = "notifications";
-
+	private static int DbPoolCount = 4;
 	private static MongoCollection<Document> collection = null;
-	private static final MongoClientURI uri = new MongoClientURI(
-			"mongodb://localhost");
+
 	public static HashMap<String, Object> create(HashMap<String, Object> attributes, String target_id) {
 
+		MongoClientOptions.Builder options = MongoClientOptions.builder()
+	            .connectionsPerHost(DbPoolCount);
+		MongoClientURI uri = new MongoClientURI(
+				"mongodb://localhost",options);
 		MongoClient mongoClient = new MongoClient(uri);
 		MongoDatabase database = mongoClient.getDatabase("El-Menus");
 
@@ -51,9 +55,17 @@ public class Notification {
 		
 		return attributes;
 	}
+	public static int getDbPoolCount() {
+		return DbPoolCount;
+	}
+	public static void setDbPoolCount(int dbPoolCount) {
+		DbPoolCount = dbPoolCount;
+	}
 	public static ArrayList<HashMap<String, Object>> get(String messageId) {
+		MongoClientOptions.Builder options = MongoClientOptions.builder()
+	            .connectionsPerHost(DbPoolCount);
 		MongoClientURI uri = new MongoClientURI(
-				"mongodb://localhost");
+				"mongodb://localhost",options);
 
 		MongoClient mongoClient = new MongoClient(uri);
 		MongoDatabase database = mongoClient.getDatabase("El-Menus");
