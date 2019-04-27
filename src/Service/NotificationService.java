@@ -44,6 +44,7 @@ public class NotificationService {
 	
 	public static void main(String[] argv) {
 		run();
+		ServiceController.run();
 	}
 	public static int getThreadPoolCount() {
 		return threadPoolCount;
