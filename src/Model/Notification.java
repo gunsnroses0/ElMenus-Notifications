@@ -64,9 +64,6 @@ public class Notification {
 		JSONParser parser = new JSONParser();
 
 		HashMap<String, Object> returnValue = Command.jsonToMap((JSONObject) parser.parse(newNotification.toJson()));
-
-
-		mongoClient.close();
 		
 		return returnValue;
 		
@@ -105,8 +102,6 @@ public class Notification {
 				e.printStackTrace();
 			}
 		}
-
-		mongoClient.close();
         return notifications;
 	}
 	
