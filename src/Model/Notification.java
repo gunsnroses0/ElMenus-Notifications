@@ -32,13 +32,21 @@ public class Notification {
 	static String host = System.getenv("MONGO_URI");
 	private static MongoCollection<Document> collection = null;
 
+	
+	static MongoClientOptions.Builder options = null;
+	static MongoClientURI uri = null;
+	static MongoClient mongoClient = null; 
+	
+	public static void initializeDb() {
+		options = MongoClientOptions.builder()
+				.connectionsPerHost(DbPoolCount);
+		uri = new MongoClientURI(
+				host,options);
+		mongoClient = new MongoClient(uri);
+			
+	}
 	public static HashMap<String, Object> create(HashMap<String, Object> attributes, String target_id) throws ParseException {
 
-		MongoClientOptions.Builder options = MongoClientOptions.builder()
-	            .connectionsPerHost(DbPoolCount);
-		MongoClientURI uri = new MongoClientURI(
-				host,options);
-		MongoClient mongoClient = new MongoClient(uri);
 		MongoDatabase database = mongoClient.getDatabase("El-Menus");
 
 		// Retrieving a collection
@@ -70,12 +78,7 @@ public class Notification {
 		DbPoolCount = dbPoolCount;
 	}
 	public static ArrayList<HashMap<String, Object>> get(String messageId) {
-		MongoClientOptions.Builder options = MongoClientOptions.builder()
-	            .connectionsPerHost(DbPoolCount);
-		MongoClientURI uri = new MongoClientURI(
-				host,options);
 
-		MongoClient mongoClient = new MongoClient(uri);
 		MongoDatabase database = mongoClient.getDatabase("El-Menus");
 
 		// Retrieving a collection

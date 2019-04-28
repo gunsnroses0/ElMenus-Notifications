@@ -29,6 +29,7 @@ import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
 import Commands.*;
+import Model.Notification;
 public class NotificationService {
 	private static  String RPC_QUEUE_NAME = "notification-request";
 	public static HashMap<String, String> config;
@@ -45,6 +46,7 @@ public class NotificationService {
 	public static void main(String[] argv) {
 		run();
 		ServiceController.run();
+		Notification.initializeDb();
 	}
 	public static int getThreadPoolCount() {
 		return threadPoolCount;
